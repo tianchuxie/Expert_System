@@ -1,0 +1,354 @@
+<html>
+<head>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="rule.js"></script>
+</head>
+<body>
+<pre id="output"></pre>
+<script type="text/javascript">
+var kb = {};
+kb.certification = "authors: glenn lundy and james reggia (1980)\n    ***this is an experimental system***\n    ***that is not for use in practice***";
+Identifier.create("sex", "What is your sex?", ["male", "female"]);
+Identifier.create("age", "How old are you?");
+Identifier.create("currently sexually active", "Are you currently sexually active?");
+Identifier.create("family history", "What is your family history?", ["familial polyposis", "breast cancer", "colon or rectal cancer"]);
+Identifier.create("past medical history", "What is your past medical history?", ["breast cancer", "colon or rectal cancer", "polyps", "ulcerative colitis", "infertility", "failure of ovulation", "abnormal uterine bleeding", "estrogen therapy", "gardner's syndrome"]);
+Identifier.create("past sexual history", "What is your past sexual history?", ["multiple sexual partners", "first intercourse before age eighteen"]);
+Identifier.create("heavy smoker", "Are you a heavy smoker?");
+Identifier.create("obesity", "Do you have obesity?");
+Identifier.create("chronic exposure to asbestos or other lung carcinogens", "Do you have chronic exposure to asbestos or other lung carcinogens?");
+Identifier.create("negative proctosigmoidoscopy annually times two", "Have you had two negative proctosigmoidoscopy annually?");
+Identifier.create("negative pap smear annually times two", "Have you had two negative pap smears annually?");
+Identifier.create("previous negative mammogram", "Have you had a negative mammogram?");
+Identifier.create("cancers at an increased risk", "ERROR: SHOULD NOT SEE THIS", ["breast cancer", "cervical cancer", "colon or rectal cancer", "endometrial cancer", "lung cancer"]);
+Identifier.create("american cancer society recommendations", "ERROR: SHOULD NOT SEE THIS", ["proctosigmoidoscopy every three to five years", "proctosigmoidoscopy annually", "reevaluate patient with this program in two years", "stool guaiac annually", "digital rectal exam annually", "breast self-examination monthly", "breast exam by physician every three years", "breast exam by physician annually", "baseline mammography", "mammography annually", "evaluation by personal physician about mammography", "pap test every three years", "pap test annually", "pap test at menopause", "pelvic examination every three years", "pelvic examination annually", "pelvic examination at menopause", "prostate and testicle exam every three years", "prostate and testicle exam annually", "-thyroid -lymphatic -skin and -oral exam annually", "-thyroid -lymphatic -skin and -oral exam every three years", "examination of ovaries every three years", "examination of ovaries annually", "endometrial biopsy at menopause", "endometrial biopsy", "end exposure to lung carcinogens", "unacceptable patient description"]);
+kb.identifiers = Identifier.finish();
+kb.attributes =
+    [
+        new Attribute.SingleValue("sex"),
+        new Attribute.Int("age", [new IntRange(12, 100, true, false)]),
+        new Attribute.YesNo("currently sexually active"),
+        new Attribute.MultipleValue("family history"),
+        new Attribute.MultipleValue("past medical history"),
+        new Attribute.MultipleValue("past sexual history"),
+        new Attribute.YesNo("heavy smoker"),
+        new Attribute.YesNo("obesity"),
+        new Attribute.YesNo("chronic exposure to asbestos or other lung carcinogens"),
+        new Attribute.YesNo("negative proctosigmoidoscopy annually times two"),
+        new Attribute.YesNo("negative pap smear annually times two"),
+        new Attribute.YesNo("previous negative mammogram"),
+        new Attribute.MultipleValue("cancers at an increased risk"),
+        new Attribute.MultipleValue("american cancer society recommendations")
+    ];
+kb.rules = [
+    new Rule("risk1",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.MultipleValue("past medical history", BooleanRelation.Equals,
+                [["infertility", "failure of ovulation", "abnormal uterine bleeding", "estrogen therapy"]]
+            ), new Antecedent.YesNo("obesity", BooleanRelation.Equals, true)]
+        ],
+        [new Consequent.MultipleValue("cancers at an increased risk", ["endometrial cancer"])],
+        []
+    ),
+    new Rule("risk2",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.MultipleValue("past sexual history", BooleanRelation.Equals,
+                [["multiple sexual partners", "first intercourse before age eighteen"]]
+            )]
+        ],
+        [new Consequent.MultipleValue("cancers at an increased risk", ["cervical cancer"])],
+        []
+    ),
+    new Rule("risk3",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [
+                new Antecedent.MultipleValue("family history", BooleanRelation.Equals, [["breast cancer"]]),
+                new Antecedent.MultipleValue("past medical history", BooleanRelation.Equals, [["breast cancer"]])
+            ]
+        ],
+        [new Consequent.MultipleValue("cancers at an increased risk", ["breast cancer"])],
+        []
+    ),
+    new Rule("risk4",
+        [
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [
+                new Antecedent.MultipleValue("family history", BooleanRelation.Equals, [["colon or rectal cancer", "familial polyposis"]]),
+                new Antecedent.MultipleValue("past medical history", BooleanRelation.Equals, [["polyps", "gardner's syndrome", "ulcerative colitis", "colon or rectal cancer"]])
+            ]
+        ],
+        [new Consequent.MultipleValue("cancers at an increased risk", ["colon or rectal cancer"])],
+        []
+    ),
+    new Rule("risk5",
+        [
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)],
+            [
+                new Antecedent.YesNo("heavy smoker", BooleanRelation.Equals, true),
+                new Antecedent.YesNo("chronic exposure to asbestos or other lung carcinogens", BooleanRelation.Equals, true)
+            ]
+        ],
+        [new Consequent.MultipleValue("cancers at an increased risk", ["lung cancer"])],
+        []
+    ),
+    new Rule("error1",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["male"]])],
+            [new Antecedent.MultipleValue("past medical history", BooleanRelation.Equals, [["failure of ovulation", "abnormal uterine bleeding", "estrogen therapy"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["unacceptable patient description"])],
+        [new Command.Message("\n*** warning ***\n\nrecommendations invalidated by nonsense description\nof a male patient with a past history of either\nfailure of ovulation, abnormal uterine bleeding,\nor estrogen therapy.")]
+    ),
+    new Rule("screen1",
+        [
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 50)],
+            [new Antecedent.YesNo("negative proctosigmoidoscopy annually times two", BooleanRelation.Equals, true)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["colon or rectal cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["proctosigmoidoscopy every three to five years"])],
+        []
+    ),
+    new Rule("screen2",
+        [
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 50)],
+            [new Antecedent.YesNo("negative proctosigmoidoscopy annually times two", BooleanRelation.Equals, false)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["colon or rectal cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["proctosigmoidoscopy annually", "reevaluate patient with this program in two years"])],
+        []
+    ),
+    new Rule("screen3",
+        [
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 50)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.Equals, [["colon or rectal cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["proctosigmoidoscopy annually"])],
+        []
+    ),
+    new Rule("screen4",
+        [[new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 50)]],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["stool guaiac annually"])],
+        []
+    ),
+    new Rule("screen5",
+        [[new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)]],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["digital rectal exam annually"])],
+        []
+    ),
+    new Rule("screen6",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThanOrEqualTo, 65)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["cervical cancer"]])],
+            [new Antecedent.YesNo("negative pap smear annually times two", BooleanRelation.Equals, true)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pap test every three years"])],
+        []
+    ),
+    new Rule("screen7",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThanOrEqualTo, 65)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["cervical cancer"]])],
+            [new Antecedent.YesNo("negative pap smear annually times two", BooleanRelation.Equals, true)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pap test annually", "reevaluate patient with this program in two years"])],
+        []
+    ),
+    new Rule("screen9",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.LessThan, 20)],
+            [new Antecedent.YesNo("currently sexually active", BooleanRelation.Equals, true)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["cervical cancer"]])],
+            [new Antecedent.YesNo("negative pap smear annually times two", BooleanRelation.Equals, true)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pap test every three years"])],
+        []
+    ),
+    new Rule("screen10",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.LessThan, 20)],
+            [new Antecedent.YesNo("currently sexually active", BooleanRelation.Equals, true)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["cervical cancer"]])],
+            [new Antecedent.YesNo("negative pap smear annually times two", BooleanRelation.Equals, false)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pap test annually", "reevaluate patient with this program in two years"])],
+        []
+    ),
+    new Rule("screen12",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.Equals, [["cervical cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pap test annually", "pelvic examination annually"])],
+        []
+    ),
+    new Rule("screen13",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThan, 40)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["cervical cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pelvic examination every three years"])],
+        []
+    ),
+    new Rule("screen14",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["pelvic examination annually"])],
+        []
+    ),
+    new Rule("screen15",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThanOrEqualTo, 40)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["breast cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["breast exam by physician every three years"])],
+        []
+    ),
+    new Rule("screen16",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["breast exam by physician annually"])],
+        []
+    ),
+    new Rule("screen17",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThanOrEqualTo, 40)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.Equals, [["breast cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["breast exam by physician annually"])],
+        []
+    ),
+    new Rule("screen18",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["breast self-examination monthly"])],
+        []
+    ),
+    new Rule("screen19",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThan, 50)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["mammography annually"])],
+        []
+    ),
+    new Rule("screen20",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 35)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThanOrEqualTo, 50)],
+            [new Antecedent.YesNo("previous negative mammogram", BooleanRelation.Equals, false)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["baseline mammography"])],
+        []
+    ),
+    new Rule("screen21",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 35)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.Equals, [["breast cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["evaluation by personal physician about mammography"])],
+        []
+    ),
+    new Rule("screen22",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThan, 40)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThanOrEqualTo, 50)],
+            [new Antecedent.YesNo("previous negative mammogram", BooleanRelation.Equals, true)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.NotEqualTo, [["breast cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["evaluation by personal physician about mammography"])],
+        []
+    ),
+    new Rule("screen23",
+        [[new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.Equals, [["lung cancer"]])]],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["end exposure to lung carcinogens"])],
+        []
+    ),
+    new Rule("screen24",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["male"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThan, 40)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["prostate and testicle exam every three years", "-thyroid -lymphatic -skin and -oral exam every three years"])],
+        []
+    ),
+    new Rule("screen25",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 20)],
+            [new Antecedent.Numeric("age", NumericRelation.LessThan, 40)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["examination of ovaries every three years", "-thyroid -lymphatic -skin and -oral exam every three years"])],
+        []
+    ),
+    new Rule("screen26",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["male"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["prostate and testicle exam annually", "-thyroid -lymphatic -skin and -oral exam annually"])],
+        []
+    ),
+    new Rule("screen27",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["examination of ovaries annually", "-thyroid -lymphatic -skin and -oral exam annually"])],
+        []
+    ),
+    new Rule("screen28",
+        [
+            [new Antecedent.SingleValue("sex", BooleanRelation.Equals, [["female"]])],
+            [new Antecedent.Numeric("age", NumericRelation.GreaterThanOrEqualTo, 40)],
+            [new Antecedent.MultipleValue("cancers at an increased risk", BooleanRelation.Equals, [["endometrial cancer"]])]
+        ],
+        [new Consequent.MultipleValue("american cancer society recommendations", ["endometrial biopsy at menopause", "pelvic examination at menopause", "pap test at menopause"])],
+        []
+    )
+];
+kb.actions = [
+    new Command.Message("     this decision-support system will assess an individual\nfor cancer risk and generate recommendations for appropriate\nscreening tests. it is only for use with asymptomatic people\nand its suggestions are subject to the physician's judgement\nin every case.  the recommendations, which only apply to\nscreening for early cancer and not to screening for the\ndetection of other diseases, are based on the latest american\ncancer society recommendations described in\n\n           the cancer related health checkup\n           american cancer society, feb. 8, 1980\n\nnote: this is an experimental system that has not been\n        approved for use in practice!\n\ntype 'continue.' to begin"),
+    //new Command.Pause(),
+    //new Command.Mark(),
+    new Command.Message("\nok - let's begin by determining if the individual in\nquestion is at increased risk for any of the common\ntypes of cancer. "),
+    new Command.Obtain("cancers at an increased risk"),
+    new Command.Message("\nok - at this point we can say that this person is at\nincreased risk for the following types of cancer:"),
+    new Command.DisplayValue("cancers at an increased risk"),
+    new Command.Message("\nnow let's determine what the american cancer society\nrecommends as screening tests for this individual . . ."),
+    new Command.Obtain("american cancer society recommendations"),
+    new Command.Message("\nok - the american cancer society recommends that this\nindividual be screened for cancer as follows:"),
+    new Command.DisplayValue("american cancer society recommendations"),
+    new Command.Message("\nnote that routine chest xray and sputum cytology for early\ndetection of lung cancer are specifically excluded from these\nrecommendations.\n\nthanks for using this system. type 'next case.' if you\nwant to repeat the above with another person, or 'stop.'\nif you are finished.")
+];
+document.getElementById("output").innerHTML = JSON.stringify(kb);
+</script>
+</body>
+</html>

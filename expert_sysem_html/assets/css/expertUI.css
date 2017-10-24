@@ -1,0 +1,210 @@
+.rules{
+    background: #ffffff;
+    padding: 1.6%;
+    margin-bottom: 1.6%;
+    border-radius: 0px 8px 8px 8px;
+    border: 2px solid #FF9900;
+    /*border: 1px solid #424242;*/
+}
+
+.rules h1{
+    line-height: 1.8em;
+}
+.rules .head{
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+}
+
+input[type="text"] {
+    display:block;
+    width: 90%;
+    padding: 0;
+    margin: 0 auto;
+    background: #ffffff;
+    height: 80%;
+}
+
+input[type="radio"] {
+    display: none;
+}
+input[type="button"]{ 
+    border:none; 
+} 
+
+/*#antiSelect1 select{*/
+/*    width: 100px;*/
+/*    margin: 0 auto;*/
+/*    background: #cccccc;*/
+/*    height: 80%;*/
+/*    border-radius: 12px;*/
+/*    font-size: .43em;*/
+/*    padding: 0;*/
+/*    margin-bottom: 1.6%;*/
+/*}*/
+
+select {
+    display:block;
+    width: 90%;
+    margin: 0 auto;
+    background: #ffffff;
+    height: 80%;
+    border-radius: 8px;
+}
+
+
+
+.ifSpace h3 {
+    font-size: .89em;
+    text-align: center;
+}
+.ifSpace p {
+    font-size: .89em;
+    text-align: center;
+}
+a{
+    text-decoration: none;
+    color: #3299BB;
+}
+span{
+    float: right;
+	line-height: .5em;
+    font-size: .8em;
+}
+textarea {
+    display:block;
+    width: 90%;
+    margin: 0 auto;
+    background: #ffffff;
+    height: 80%;
+    border-radius: 8px;
+}
+.accent:hover {
+    background: #FF9900;
+    /*box-shadow: 0 0 5px #FF9900;*/
+    /*border-color: #FF9900;*/
+}
+.button{
+    text-decoration: none;
+    background: #3299BB;
+    width: 100%;
+	text-align:center;
+	height: 90%;
+    border-radius: 6px;
+	font-size:1.2em;
+	font-weight: 500;
+	line-height: 1.8em;
+	color: #ffffff;
+	letter-spacing: 0.005em;
+	color: #ffffff;
+	margin:0 auto;
+
+}
+.button:hover {
+    color: #cccccc;
+}
+
+.button2{
+    background:#ffffff;
+    text-decoration: none;
+    text-align:center;
+    width: 100%;
+	height: 90%;
+    border-radius: 6px;
+	font-weight: 700;
+	line-height: 1em;
+    font-size: .8em;
+	color: #3299BB;
+	letter-spacing: 0.005em;
+	margin:0 auto;
+	cursor: pointer;
+    font-size: .8em;
+
+}
+.button2:hover {
+    color: #FF9900;
+}
+
+
+#tab1 input .special,
+#tab2 input .special,
+#tab3 input .special,
+#tab4 input .special,
+#tab5 input .special {
+  display: none;
+}
+
+.col .noColor{
+    background: #ffffff;
+    color: #ffffff;
+    border: none;
+    padding: 1.6% 1.6% 1.6% 1.6%;
+	margin-bottom: 1.6%;
+	border-radius: 6px;
+}
+/*.tabs {*/
+/*    margin: 0 auto;*/
+/*}*/
+section {
+  display: none;
+  /*border-top: 1px solid #ddd;*/
+}
+
+
+
+label[for=tab1],label[for=tab2],label[for=tab3],
+label[for=tab4],label[for=tab5],label[for=tab6]{
+    background: #ffffff;
+    display: inline-block;
+    
+    margin-right: 10px;
+    /*width: 10%;*/
+    
+    padding: 10px 25px;
+    font-weight: 600;
+    font-size: .9em;
+    letter-spacing: 0.002em;
+    text-align: center;
+    color: #bbb;
+ 
+    border-radius: 10px 10px 0px 0px;
+ 
+}
+
+label[for=tab1]:before, label[for=tab2]:before, label[for=tab3]:before,
+label[for=tab4]:before ,label[for=tab5]:before, label[for=tab6]:before  {
+      font-weight: normal;
+      margin-right: 10px;
+}
+
+/*label[for=tab1]:before { content: '\f1cb'; }*/
+/*label[for=tab2]:before { content: '\f17d'; }*/
+/*label[for=tab3]:before { content: '\f16b'; }*/
+/*label[for=tab4]:before { content: '\f1a9'; }*/
+/*label[for=tab5]:before { content: '\f1a9'; }*/
+
+label[for=tab1]:hover, label[for=tab2]:hover, label[for=tab3]:hover,
+label[for=tab4]:hover ,label[for=tab5]:hover, label[for=tab6]:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + label[for*='tab'] {
+    margin-bottom: -2px;
+  color: #555;
+  /*border: 1px solid #ddd;*/
+  border-top: 2px solid #FF9900;
+  border-left: 2px solid #FF9900;
+  border-right: 2px solid #FF9900;
+  border-bottom: 2px solid #ffffff;
+}
+
+#tab1:checked ~ #contentDescription,
+#tab2:checked ~ #mainAttribSection,
+#tab3:checked ~ #contentRules,
+#tab4:checked ~ #contentActions,
+#tab5:checked ~ #contentSummary,
+#tab6:checked ~ #contentDone{
+  display: block;
+  margin-bottom: -1px;
+}
+

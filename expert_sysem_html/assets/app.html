@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App</title>
+    <!-- Stylesheets -->
+	<link rel="stylesheet" href="css/html5reset.css" media="all">
+	<link rel="stylesheet" href="css/col.css" media="all">
+	<link rel="stylesheet" href="css/6cols.css" media="all">
+	<link rel="stylesheet" href="css/8cols.css" media="all">
+	<link rel="stylesheet" href="css/main.css" media="all">
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	
+	<!--WHY ?????-->
+	<!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.6.4.min.js"></script>-->
+ <!--   <script type="text/javascript" src="https://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>-->
+	<!--<script type="text/javascript" src="js/ImportTextJSON.js"></script>-->
+	<script type="text/javascript" src="js/acs.js"></script>
+	<script type="text/javascript" src="js/localstorage.js"></script>
+	<script type="text/javascript" src="js/integration.js"></script>
+	<script type="text/javascript" src="js/jsonMethods.js"></script>
+	
+	
+	
+</head>
+<body onload="testIfExists()">
+	<div class="container">
+	    <div class="header section group">
+	        
+	        <div id="logo" class="col span_3_of_8">
+				<h1><a href="../expertUI.html">Expert System Builder</a></h1>
+				<span>by Tianchu Xie</span>
+			</div>
+			<nav id="nav" class="col span_5_of_8">
+				<ul>
+					<li><a href="download.html">Download</a></li>
+					<li><a href="about.html">About Us</a></li>
+					<li><a href="instructions.html">Instructions</a></li>
+					<li class="current"><a href="app.html">App</a></li>
+					<li><a href="../expertUI.html">Welcome</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	
+	
+	<div class="container">
+		<div class="section group">
+			<div id="mode" class="col span_1_of_8">
+			</div>
+			<div id="mode" class="head col span_2_of_8">
+				<h2>New System</h2>
+				<p>Create new Expert system from scratch. Take a look at our Instructions for guidance</p>
+				<ul>
+					<!-- <a href="expert_UI.html">Start</a> call fucntion with no attribute<a href="#" onClick="clearStartFresh"> -->
+					<li><a href="#" onClick="clearStartFresh()">Start</a></li>
+				</ul>
+			</div>
+			<div id="mode" class="head col span_4_of_8">
+				<h2>Upload System</h2>
+				<p>Update, Troubleshoot or Modify your system</p>
+				
+				<!--<input type="file" id="fileInput" /><br />-->
+				<!--<input type="button" value="Run" onclick="Runner.runFile('fileInput');" />-->
+				<input type="file" id="jsonfile"/>
+				<ul>
+					<!-- call fucntion with one attribute location 
+					to json file or load json into local storage now
+					for engine to read-->
+					<li><a href="#" id="expertRunner" onclick="readSingleFile('jsonfile','expert');">Start Expert Interface</a></li>
+					<li><a href="#" onclick="readSingleFile('jsonfile','user');">Start User Interface</a></li>
+				</ul>
+			</div>
+			<div id="mode" class="col span_1_of_8">
+			</div>
+		</div>	
+		<div class="section group">
+			<div id="mode" class="col span_1_of_8">
+			</div>
+			<div id="mode" class="head col span_2_of_8">
+				<h2>Continue</h2>
+				<p id="message">We saved your system! Please don't forget to save progress, as you keep building.</p>
+				<ul>
+					<!-- call function to load from storage saved
+					state if possible-->
+					<li class="info"><a href="expert_UI.html" class="non_active" id="continue">Continue</a></li>
+				</ul>
+			</div>
+			<div id="mode" class="head col span_4_of_8">
+				<h2>Pre Built System</h2>
+				<p>Learn from one of our Pre Built Systems. Let's start with our Medical System</p>
+				<ul>
+					<!-- call function to load acs.json  sendToExpertLocalS  sendToExpertLocalFromACS   -->
+					<li><a href="#" onClick="sendToExpertLocalS()">Sample Expert Interface</a></li>
+					<li><a href="#" onClick="sendToUserLocalS()">Sample User Interface</a></li>
+				</ul>
+			</div>
+			<div id="mode" class="col span_1_of_8">
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div id="hiddenJSON"></div>
+	</div>
+	
+	
+	
+	
+	<div class="container">
+		<footer class="footer section group">
+			<div class="col span_3_of_6">
+			 	<h2>Expert System Builder</h2>
+				<p>It's free and it allows experts to capture and convert a body of knowledge into a decision support tool to be deployed locally or on a web platform.</p>
+			</div>
+			
+			<nav>
+				<ul>
+					<li><a href="about.html">About</a></li>
+					<li><a href="notice.html">Terms of Service</a></li>
+					<li><a href="download.html">Download</a></li>
+				</ul>
+		    </nav>
+		    <div class="clear">
+		    	<p>Copyright © 2016 Group159</p>
+		    </div>
+		</footer>
+	</div>
+	
+
+</div>
+<!--<div style="position:absolute;bottom:0;right:0;width:1px;height:1px;background-color:red;" onmouseover="window.location.href='http://lmgtfy.com/?q=webMD'"></div>-->
+</body>
+</html>

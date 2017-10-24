@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <title>Instructions</title>
+    <!-- Stylesheets -->
+	<link rel="stylesheet" href="css/html5reset.css" media="all">
+	<link rel="stylesheet" href="css/col.css" media="all">
+	<link rel="stylesheet" href="css/6cols.css" media="all">
+	<link rel="stylesheet" href="css/8cols.css" media="all">
+	<link rel="stylesheet" href="css/main.css" media="all">
+</head>
+<body>
+	<div class="container">
+	    <div class="header section group">
+	        <div id="logo" class="col span_3_of_8">
+				<h1><a href="../expertUI.html">Expert System Builder</a></h1>
+				<span>by Tianchu Xie</span>
+			</div>
+			<nav id="nav" class="col span_5_of_8">
+				<ul>
+					<li><a href="download.html">Download</a></li>
+					<li><a href="about.html">About Us</a></li>
+					<li class="current"><a href="instructions.html">Instructions</a></li>
+					<li><a href="app.html">App</a></li>
+					<li><a href="../expertUI.html">Welcome</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	
+	
+	<div class="container">
+		<div class="col span_1_of_8">
+			<div class="sideBad section group">
+				<nav id="sideNav">
+					<a href="#installation">Installation</a>
+					<a href="#getting">Getting Started</a>
+					
+					<a href="#expert">Expert User Instructions</a>
+					<a href="#info">Info</a>
+					<a href="#attr">Attributes</a>
+					<a href="#rules">Rules</a>
+					<a href="#actions">Actions</a>
+					<a href="#summary">Summary</a>
+					<a href="#trouble">Troubleshooting</a>
+					<a href="#save">Saving</a>
+				
+					<a href="#EndUser">End User Instructions</a>
+					<a href="#video">Video Tutorial</a>
+					
+				</nav>
+			</div>
+		</div>
+		<div class="col span_7_of_8">
+			<div class="head section group">
+				<div class="sideBad col span_8_of_8">
+					<a name="installation"><h1>Installation</h1></a>
+					<h2>Offline</h2>
+					<p>From our downloads page you can navigate to the link to download the Expert System Builder for offline use.  The download will be a zip archive.  Unzip the archive.  The zip archive will contain a README, the HTML for the expert system, and dependecy folders which allow the expert system to run.  You can run the expert system by opening the HTML in a supported internet browser.</p>
+				</div>
+			</div>
+			<div class="head section group">
+				<div class="sideBad col span_8_of_8">
+					<a name="getting"><h1>Getting Started</h1></a>
+					<p>From the top ribbon select "App" to get to the Expert User Interface. You will be presented with various ways to start using an expert system. "New System" let’s you just jump right in and create an Expert System from scratch. "Continue” sends you back to your saved progress if you were already working on a system. On the "Upload System" area, you can edit a pre-fabricated Expert System that was built using this application, or use it to give a prediction. The upload only receives a .json type of file that has a previously created Expert System. Once the .json is uploaded, you can use the two buttons in the area. The "Start Expert Interface” button populates the Expert side with rules, attributes and actions that can be seen and edited on the summary tab. The "Start User Interface” button takes you to the page where the Expert System makes a prediction. You can also choose to load a template of a pre-created Expert System to start from there using the Pre Built System area. If you choose "Sample Expert Interface" it will take you to an already populated expert side where you can see the rules, attributes, and actions in the summary Area. If you choose "Sample User Interface" it will take you through an example on how it works for the end-user side. </p>
+					<img class="middle" src="images/gettingStarted.jpg" width=80% height=80% alt="">
+				</div>
+			</div>
+			
+			<div class="head section group">
+				<div class="sideBad col span_8_of_8">
+				    <a name="expert"><h1>Expert User Instructions</h1></a>
+					<h2>Navigating the Expert User Interface</h2>
+					<p>The interface has different tabs that can be used according to the user's preference</p>
+					
+					<a name="info"><h3>Info</h3></a>
+					<p>When you open the expert user interface you will start at the "Info" tab.  From here you may name your Expert System, add a description of the system, and include author names for the system.</p>
+					<img src="images/info.jpg" width=80% height=80% alt="">
+					
+					<a name="attr"><h3>Attributes</h3></a>
+					<p>The "Attributes" tab allows you to create attributes.  Attributes are like the variables of a system.  Every attribute has a name which you can use to identify which attribute is being worked on.  The question field is the question that will be prompted to the user using the expert system when trying to obtain a value for an attribute.  Values are the possible values an attribute can have.  
+					Values have 4 different types, "multiple", "single", "numeric", and "boolean."</p>
+					<img src="images/attributes.jpg" width=80% height=80% alt="">
+					<p>Multiple allows a user to select any number of values for an attribute at a time.  For example, you might have the attribute "clothes" and the question "What clothes are you wearing?"  A user could select the values "t-shirt', "pants", "socks" from a list of values if they are fully clothed.  If a user is not wearing clothes they do not have to select any values.</p>
+					
+					<p>Single allows a user to only select a single value from a list of values.  For example, you might have the attribute "weather" with possible values "sunny," "rainy," and "snowy"  A user can only select one value at a time because it does not make sense to have both "sunny" and "rainy" at the same time.<p>
+					
+					<p>Numeric means an attribute holds a numeric value.  Numeric values also allow you to specify a range of acceptable values to enter and whether valid values are integers or decimal values. Numeric ranges can also be exclusive (meaning you cannot select the end values of the range) or inclusive (meaning you can select the end value of a range). An example of a numeric value would be the attribute "age" which only allows integers in a range from 0 to 120.  A user using the expert system will be able to key in an age which is within the range and is an integer.<p>
+					
+					<p>Boolean means an attribute holds either the value "yes" or "no." You cannot specify any other values for a boolean type. For example, you might have a boolean attribute that asks "Is your computer turned on?."  The user will see the question and be able to select "yes" or "no."
+					
+					<p>Single allows a user to only select a single value from a list of values.  For example, you might have the attribute "weather" with possible values "sunny," "rainy," and "snowy"  A user can only select one value at a time because it does not make sense to have both "sunny" and "rainy" at the same time.<p>
+					
+					<p>Numeric means an attribute holds a numeric value.  Numeric values also allow you to specify a range of acceptable values to enter and whether valid values are integers or decimal values. Numeric ranges can also be exclusive (meaning you cannot select the end values of the range) or inclusive (meaning you can select the end value of a range). An example of a numeric value would be the attribute "age" which only allows integers in a range from 0 to 120.  A user using the expert system will be able to key in an age which is within the range and is an integer.<p>
+					
+					<p>Boolean means an attribute holds either the value "yes" or "no." You cannot specify any other values for a boolean type. For example, you might have a boolean attribute that asks "Is your computer turned on?."  The user will see the question and be able to select "yes" or "no."</p>
+					
+					
+					<a name="rules"><h3>Rules</h3></a>
+					<p>A rule has a name, if antecedent, and then consequent.  A rule also allows the display of a message or attribute which will be run in the expert system if a rule is determined to be true.  These display "commands" are explained in the actions section below.  The name field allows the rule to be easily identified so an expert knows which rule they are working on.</p>
+					
+					<p>If antecedent are the conditions of a rule which imply a consequent.  For example you might have the rule, IF weather = raining AND loaction = outside Then condition = wet.  The antecedent in this case are weather = raining AND location = outside.  In this example, weather and location are the names of attributes, and raining and outside are the respective values that the attribute must have for the rule to be true.  The consequent in this example is condition = wet where condition is an attribute and wet is a value being assigned to condition.<p>
+					<p>An antecedent can have each attribute value pair seperated by AND or OR.  AND and OR function as the boolean orperators normally would with OR taking precedence over AND.  This mean A AND B OR C is interpreted as A AND (B OR C).  A consequent can have any number of attribute value assignment pairs seperated by AND.  The consequent will only assign attributes value if the antecednet is true and the attribute is not already assigned a value.<p>
+					<img src="images/rules.jpg" width=80% height=80% alt="">
+					
+					<a name="actions"><h3>Actions</h3></a>
+					<p>Actions are the way a user is guided through an expert system. Actions are commands which are iterated through in order and presented to the user in the expert system.  There are three possible actions, "Display Message", "Display Attribute", and "Obtain Attribute."<p>
+					
+					<p>Display Message simply displays whatever text included to the user.  For example you could have a display message command which says "Starting the expert system" at the beginning of the system.  Messages are helpful to an expert to provide explanations for the flow of the expert system to the user accessing the system.<p>
+					
+					<p>Display Attribute will display the value(s) of an attribute which have been assigned and display them to the user of the expert system. Display Attribute should only be used on an attribute that already has an assigned value and will otherwise report an error.<p>
+					
+					<p>Obtain Attribute will attempt to obtain the value of an attribute without directly querying the user what the attribute is.  For example, let's pretend there is an expert system which diagnosis issues with cars. If you are trying to figure out what is wrong with a car, you can't ask the user "What is wrong with the car?" because the user does not know! That is why they are using the expert system in the first place.  When an Obtain Attribute command is used on an attribute, it will search through all the rules to find which rules have that attribute in their consequent. 
+					For each rule that the engine goes through, it will determine if the antecedent is true.  Whenever the engine comes upon an unknown attribute in the antecedent, it will query the user for an attribute and continue once that value has been obtained.</p>
+					<img src="images/actions.jpg" width=80% height=80% alt="">
+					
+					<a name="summary"><h3>Summary</h3></a>
+					<p>The summary tab allows a user to view all the attributes, rules, and actions currently entered into the system.  From this tab you can select an attribute, rule, or action to modify or delete.</p>
+					<img src="images/summary.jpg" width=80% height=80% alt="">
+					<a name="trouble"><h2>Troubleshooting</h2></a>
+					
+					
+					
+					<p>If you have an issue with using the expert system you can read the instructions page to learn more about how the system works.  If you ever make a mistake creating a rule, attribute, or action, you can go to the summary tab and delete or modify your mistake.  If you think there is an issue with the Expert Builder System you can contact Group 159 to report issues with the system.</p>
+					<a name="save"><h2>Saving Progress</h2></a>
+					<p>You will be presented with multiple options for saving your expert system.  You can save a JSON file which can be reuploaded into the system to restore your state.  If your browser has the ability to use local storage the system may be saved there and you can resume working on the website at a later time without worrying about your progress being lost.</p>
+				</div>
+			</div>
+			<div class="head section group">
+				<div class="sideBad col span_8_of_8">
+					<a name="EndUser"> <h1>End User Instructions</h1></a>
+					<h2>Using an Expert System</h2>
+					<p>If you are an end user of the expert system, you have either recieved an expert system archive from an expert or have been directed to a website to use an expert system.  Either way, you should run a html page with opens the expert system in a browser.  Follow the on-screen instructions and you should expct the Expert System to prompt you with questions one at a time which you will answer.  Questions might be yes or no questions, multiple choice, or entering anumerical value. When you are satisified with your entry, you may press the submit button to continue your progress through the expert system.  The reset button will clear your responses for the current question if you wish to reset your entry before submitting.  The expert system terminates when it stops asking questions and displaying on screen instructions</p>
+					<h3>End-user Example 1</h3>
+					<img src="images/enduserExample1.jpg" width=80% height=60% alt="">
+					<h3>End-user Example 2</h3>
+					<img src="images/enduserExample2.jpg" width=80% height=60% alt="">
+					<h2>Troubleshooting</h2>
+					<p>If you are using an expert system which seems to terminate abruptly or provide inaccurate information, you should contact the expert who created the system.  Our Expert System Builder is a tool which allows a variety of different expert systems of various complexity to operate.  It is likely that an expert may not have tested every case and there is an error with their system that they missed.</p>
+				</div>
+			</div>
+			<div class="sideBad head section group">
+				
+				<a name="video"><h2>Video Tutorial</h2></a>
+				
+				<div class="videoWrapper sideBad col span_8_of_8">
+					<div class="col span_1_of_8"></div>
+					<div class="videoWrapper sideBad col span_6_of_8">
+						<iframe width="500" height="280" src="https://www.youtube.com/embed/bY95TnZ49eM" frameborder="0" allowfullscreen></iframe>
+					</div>
+					<div class="col span_1_of_8"></div>		
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<div class="container">
+		<footer class="footer section group">
+			<div class="col span_3_of_6">
+			 	<h2>Expert System Builder</h2>
+				<p>It's free and it allows experts to capture and convert a body of knowledge into a decision support tool to be deployed locally or on a web platform.</p>
+			</div>
+			
+			<nav>
+				<ul>
+					<li><a href="about.html">About</a></li>
+					<li><a href="notice.html">Terms of Service</a></li>
+					<li><a href="download.html">Download</a></li>
+				</ul>
+		    </nav>
+		    <div class="clear">
+		    	<p>Copyright © 2016 Group159</p>
+		    </div>
+		</footer>
+	</div>
+</div>
+</body>
+</html>

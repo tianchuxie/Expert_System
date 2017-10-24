@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expert System Builder</title>
+    <!-- Stylesheets -->
+	<link rel="stylesheet" href="css/html5reset.css" media="all">
+	<link rel="stylesheet" href="css/col.css" media="all">
+	<link rel="stylesheet" href="css/6cols.css" media="all">
+	<link rel="stylesheet" href="css/8cols.css" media="all">
+	<link rel="stylesheet" href="css/main.css" media="all">
+	<link rel="stylesheet" href="css/expertUI.css" media="all">
+	
+	<script type="text/javascript" src="js/jsonMethods.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/summary.js"></script>
+	<script type="text/javascript" src="js/localstorage.js"></script>
+	<script type="text/javascript" src="UserUI_For_Expert/common.js"></script>
+	
+</head>
+<body onload="checkIfLoaded()">
+	<!--HEADER-->
+	<div class="container">
+	    <div class="header section group">
+	        <div id="logo" class="col span_3_of_8">
+				<h1><a href="../expertUI.html">Expert System Builder</a></h1>
+			</div>
+			<nav id="nav" class="col span_5_of_8">
+				<ul>
+					<li><a href="download.html">Download</a></li>
+					<li><a href="about.html">About Us</a></li>
+					<li><a href="instructions.html">Instructions</a></li>
+					<li class="current"><a href="app.html">App</a></li>
+					<li><a href="../expertUI.html">Welcome</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<main class="container">
+
+	<input id="tab1" class="special" type="radio" name="tabs" checked>
+	<label class="moveLeft" for="tab1">Info</label>
+	
+	<input id="tab2" class="special" type="radio" name="tabs">
+	<label class="moveLeft" for="tab2">Attributes</label>
+	
+	<input id="tab3" class="special" type="radio" name="tabs">
+	<label class="moveLeft" for="tab3">Rules</label>
+	
+	<input id="tab4" class="special" type="radio" name="tabs">
+	<label class="moveLeft" for="tab4">Actions</label>
+	
+	<input id="tab5" class="special" type="radio" name="tabs">
+	<label class="moveLeft" for="tab5">Summary</label>
+	
+	<input id="tab6" class="special" type="radio" name="tabs">
+	<label class="moveLeft" for="tab6">Finish</label>
+
+	<section id="contentDescription" class="container rules">
+		<section class="col span_8_of_8">
+			<h2>Description Area</h2>
+		</section>
+		<div class="section group">
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="head col span_3_of_8 ifSpace">
+					    <h3>System Name</h3>
+					</div>
+					<div class="head col span_4_of_8 accent">
+						<input type="text" id="newSystemName"/>
+					</div>
+					<div class="col span_1_of_8 accent">
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+				<div class="section group">
+					<div class="head col span_3_of_8 ifSpace">
+					    <h3>Expert Name</h3>
+					</div>
+					<div class="head col span_4_of_8 accent">
+						<input type="text" id="newExpertName"/>
+					</div>
+					<div class="col span_1_of_8 accent">
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+				<!--this depends on the attribute type selected-->
+				<div class="section group">
+					<!--CREATE RULE BUTTON-->
+					<div class="col span_3_of_8">
+						<input id="decision" class="button" type="button" value="Continue" onclick="saveSystemInfo()"/>
+					</div>
+					<div class="col span_5_of_8"></div>
+				</div>
+			</div>
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="section group">
+						<div class="head col span_8_of_8 ifSpace accent">
+							<h3>Add Expert Sytem Description</h3>
+							<textarea id="newSystemDescription"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--ATTRIBUTES-->
+	<section class="container rules" id="mainAttribSection">
+		<section class="col span_8_of_8">
+			<h2>Create attribute</h2>
+		</section>
+		<div class="section group">
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="head col span_3_of_8 ifSpace">
+					    <h3>Attribute Name</h3>
+					</div>
+					<div class="head col span_3_of_8 accent">
+						<input type="text" id="addAttribName"/>
+					</div>
+					<div class="col span_2_of_8 accent">
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+				<div class="section group">
+					<div class="head col span_3_of_8 ifSpace">
+					    <h3>Attribute Type</h3>
+					</div>
+					<div class="head col span_3_of_8 accent">
+						<select id="addAttribType" onchange="changeAttribForm()">
+		                    <option>Multi</option>
+		                    <option>Single</option>
+		                    <option>Numeric</option>
+		                    <option>Bool</option>
+		                </select>
+					</div>
+					<div class="col span_2_of_8 accent">
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+				<!--this depends on the attribute type selected-->
+				<div class="section group">
+					<!--CREATE RULE BUTTON-->
+					<div class="col span_3_of_8">
+						<input class="button" type="button" value="Create" onclick="addAttrib()"/>
+					</div>
+					<div class="col span_5_of_8"></div>
+				</div>
+			</div>
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="head col span_2_of_8 ifSpace">
+					    <h3>Question</h3>
+					</div>
+					<div class="head col span_5_of_8 accent">
+						 <input type="text" id="addAttribPrompt"/>
+					</div>
+					<div class="col noMargin span_1_of_8">
+					</div>
+				</div>
+				<div class="section group">
+					<div class="head col span_2_of_8 ifSpace">
+					    <h3>Multiple Values</h3>
+					</div>
+					<div class="head col span_3_of_8 accent" id="mulAttribVals">
+						<input type="text" id="addAttribValue0"/>
+					</div>
+					<div class="head col span_2_of_8 ifSpace">
+					    <input class="button2" type="button" value="Add Value" onclick="addAttribValSpace()"/>
+					</div>
+					<!--<div class="col span_3_of_8 accent">-->
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					<!--</div>-->
+				</div>
+			
+			</div>
+		</div>
+	</section>
+	
+	<!--RULES-->
+	<section id="contentRules" class="container rules">
+		<section class="col span_8_of_8">
+			<div class="col span_6_of_8">
+				<h2>Rules Area</h2>
+			</div>
+			<div class="col span_2_of_8">
+			</div>
+		</section>
+		<div class="section group">
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="head col span_2_of_8 ifSpace">
+					    <h3>Rule Name</h3>
+					</div>
+					<div class="head col span_3_of_8 accent">
+						<input type="text" id="addRuleName"/>
+					</div>
+					<div class="col span_3_of_8 accent">
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+				<div id="antiHolder">
+				    <div class="section group" id="sectionGroup0">
+						<div id="antiSelect0" class="head col span_1_of_8 ifSpace">
+						    <h3>IF</h3>
+						</div>
+						<div class="head col span_3_of_8 accent">
+							<select id="antiAttrib0" onchange="updateAntiAttribVal(0)">
+			                    <option>Pick Attribute</option>
+			                </select>
+						</div>
+						<div class="head col span_1_of_8 ifSpace accent">
+						    <select id="antiAttribType0">
+			                    <option>= </option>
+			                    <option>&ne; </option>
+			                    <option>&lt; </option>
+			                    <option>&gt; </option>
+			                    <option>&le; </option>
+			                    <option>&ge; </option>
+			                </select>
+						</div>
+						<div class="head col span_3_of_8 accent">
+							<div id="antiValHolder0">
+							    <select id="antiAttribValue0">
+				                    <option>Pick Value of Attribute</option>
+				                </select>
+			                </div>
+						</div>
+					</div>
+					<div class="section group" id="sectionGroup1">
+						<div class="head col span_1_of_8 ifSpace">
+						    <select id="antiSelect1" onchange="addAnti()">
+						    	<option></option>
+						    	<option>AND</option>
+						    	<option>OR</option>
+						    </select>
+						</div>
+					</div>
+				</div>	
+				<!--LAST DIV FOR KEEP ADDING AND & ORS-->
+				<div class="section group">
+					<div class="col span_6_of_8">
+					</div>
+					<div class="col noMargin span_2_of_8">
+					    <!--<sec class="andOr">-->
+		       <!--         	<span>add <a href="addAND(this)">AND</a> / <a href="addOR(this)">OR</a></span>-->
+		       <!--         </div>-->
+					</div>
+				</div>
+				<div class="section group">
+					<!--CREATE RULE BUTTON-->
+					<div class="col span_3_of_8">
+						<input class="button" type="button" value="Create Rule" onclick="addRule()"/>
+						<!--<input class="button" type="button" value="test for fillRule" onclick="trial()"/>-->
+					</div>
+					<div class="col span_5_of_8"></div>
+				</div>
+			</div>
+			<!--ACTION AREA-->
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="col noMargin span_2_of_8 noColor">
+						<h3>e</h3>
+					</div>
+					<div class="col noMargin span_6_of_8">
+						<p>To delete a row, leave all inputs blank</p>
+						<!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/> To delete a row, leave all inputs blank  -->
+					</div>
+				</div>
+				
+				
+				<div id="consHolder">
+					<div class="section group">
+						<div class="head col noMargin span_1_of_8 ifSpace">
+							<h3>Then</h3>
+						</div>
+						<div class="head col span_3_of_8 accent">
+							
+							<select id="consAttribType0" onchange="updateConsAttribVal(0)">
+			                    <option>Pick Attribute</option>
+			                </select>
+			                
+						</div>
+						<div class="head col span_1_of_8 ifSpace">
+						    <h3>=</h3>
+						</div>
+						<div class="head col span_3_of_8 accent">
+							<div id="consValHolder0">
+							    <select id="consAttribValue0">
+				                    <option>Pick Value of Attribute</option>
+				                </select>
+			                </div>
+						</div>
+					</div>
+				</div>
+				<!--LAST DIV FOR KEEP ADDING AND & ORS-->
+				<div class="section group">
+					<div class="col span_6_of_8">
+					</div>
+					<div class="col noMargin span_2_of_8">
+					    <div class="andOr">
+		                	<span>add <a onclick="addCons()" href="javascript:void(0);">AND</a></span>
+		                </div>
+					</div>
+				</div>
+				
+				<h3 class="ifSpace">MESSAGE AREA</h3>
+				<p>If the antecedent of this rule is determined to be true, you can add a message or 
+				display any attribute's value</p>
+				
+				
+				<div class="section group" id="ruleMessageArea">
+				
+				</div>
+				<div class="section group" id="ruleDisplayArea">
+					
+				</div>
+				<!--LAST DIV FOR KEEP ADDING MESSAGES OR ATTRIBUTES-->
+				<div class="section group">
+					<div class="col span_4_of_8"></div>
+					<div class="col noMargin span_4_of_8">
+					    <div class="andOr">
+		                	<span><a onclick="addRuleMessage()" href="javascript:void(0);">Add Message</a> or <a onclick="addRuleDisplay()" href="javascript:void(0);">Display Attribute</a></span>
+		                </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!--Actions-->
+	<section id="contentActions" class="container rules">
+		<section class="col span_8_of_8">
+			<div class="col span_6_of_8">
+				<h2>Actions Area</h2>
+			</div>
+			<div class="col span_2_of_8">
+			</div>
+		</section>
+		<div class="section group">
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="head col span_2_of_8 ifSpace">
+					    <h3>Action Type</h3>
+					</div>
+					<div class="head col span_3_of_8 accent">
+						<select id="actionSelect" onchange="updateActions()">
+							<option>Display Message</option>
+							<option>Display Attribute</option>
+							<option>Obtain Attribute</option>
+						</select>
+					</div>
+					<div class="col span_3_of_8 accent">
+					    <!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+				<div class="section group" id="actionArea">
+					<div class="head col span_6_of_8 ifSpace">
+						<textarea id="actionText" cols="40" rows="5" ></textarea>
+					</div>
+					<div class="col span_2_of_8 ifSpace">
+					</div>
+				</div>
+				<div class="section group">
+					<!--CREATE RULE BUTTON-->
+					<div class="col span_3_of_8">
+						<input class="button" type="button" value="Create Action" onclick="addAction ()"/>
+					</div>
+					<div class="col span_5_of_8"></div>
+				</div>
+			</div>
+			<!--ACTION AREA-->
+			<div class="col span_4_of_8">
+				<div class="section group">
+					<div class="col noMargin span_6_of_8">
+					</div>
+					<div class="col noMargin span_2_of_8 noColor">
+						<!--<h3>Rule Name</h3>-->
+						<!--<input class="button" type="button" value="Create Rule" onclick="produceJSON()"/>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!--SUMMARY--   id="contentSummary"--> 
+	<section id="contentSummary" class="container rules">
+		<section class="col span_8_of_8">
+			<div class="col span_6_of_8">
+				<h1>Summary Area</h1>
+				<p>Please edit only one value at a time</p>
+			</div>
+			<div class="col span_2_of_8">
+			</div>
+		</section>
+		<div class="section group">
+			<div class="col span_2_of_8 " id="summarySection">
+
+			</div>
+			<div class="col span_4_of_8"  id="summaryRuleSection">
+
+			</div>
+			<div class="col span_2_of_8"  id="summaryActionSection">
+
+			</div>
+		</div>
+		<div class="section group">
+		</div>
+	</section>
+	
+	
+	<section id="contentDone" class="container rules">
+		<div class="section group">
+			<div class="col span_1_of_8">
+			</div>
+			<div id="mode" class="head col span_3_of_8">
+				<h2>Continue Troubleshooting!</h2>
+				<p id="message">Your system is ready to go for testing! Click here to try your system.</p>
+				<ul> 
+					<li><a onclick="sendToUserUILocal()" href="javascript:void(0);">User Interface</a> </li>
+				</ul>
+			</div>
+			<div id="mode" class="head col span_3_of_8">
+				<h2>Are you finished?</h2>
+				<p id="message">If you are done making changes to your Expert Sytem, 
+				click finish and a copy of your new Knowledge Base will be downloaded shortly.</p>
+				
+				<!--<input id="testBoxFileName" type="text" value="expert.json" placeholder="filename.json">-->
+				<ul>
+					<li><a href="#" onclick="writeToTextFile()">Finish</a></li>
+				</ul>
+				<output></output>
+			</div>
+			<div class="col span_1_of_8">
+			</div>
+		</div>
+	</section>
+	
+	<!--FOOTER-->
+	<div class="container">
+		<footer class="footer section group">
+			<div class="col span_3_of_6">
+			 	<h2>Expert System Builder</h2>
+				<p>It's free and it allows experts to capture and convert a body of knowledge into a decision support tool to be deployed locally or on a web platform.</p>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="assets/about.html">About</a></li>
+					<li><a href="assets/notice.html">Terms of Service</a></li>
+					<li><a href="assets/download.html">Download</a></li>
+				</ul>
+		    </nav>
+		    <div class="clear">
+		    	<p>Copyright © 2016 Group159</p>
+		    </div>
+		</footer>
+	</div>
+	<!-- <div id="showJSON"></div> -->
+	<pre id="showJSON2"></pre>
+	<!-- <div id="hiddenJSON"></div> -->
+	
+
+</div>
+</body>
+</html>
+

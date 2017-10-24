@@ -1,0 +1,234 @@
+This is an example kms.ps knowledge base delivered by Dr. James Reggia for testing purposes.
+
+
+Tab: Info
+
+Description Area
+
+System Name: Example
+Expert Name: Your Name
+Add Expert System Description: This is an example for the user of how our system works.
+
+
+
+Tab: Attributes
+
+Create Attribute
+
+Attribute Name: number of antennae
+Attribute Type: single
+Question: How many antennae does the bug have?
+Multiple Values: none
+		  two
+
+Attribute Name: number of legs
+Attribute Type: single
+Question: How many legs does the bug have?
+Multiple Values: six
+		  eight
+
+Attribute Name: number of wings
+Attribute Type: single
+Question: How many wings does the bug have?
+Multiple Values: none
+		  two
+
+Attribute Name: leg length
+Attribute Type: single
+Question: How long are the insect's legs?
+Multiple Values: shot
+		  long
+
+Attribute Name: size
+Attribute Type: single
+Question: What size is the bug?
+Multiple Values: small
+		  medium
+		  large
+
+Attribute Name: shape
+Attribute Type: single
+Question: What is the shape of the bug?
+Multiple Values: round
+		  elongated
+
+Attribute Name: color
+Attribute Type: multi
+Question: What color(s) is the bug?
+Multiple Values: black
+		  orange
+		  green
+
+Attribute Name: location of bug
+Attribute Type: single
+Question: What is the location of the bug?
+Multiple Values: inside
+		  outside
+		  plant solarium
+
+Attribute Name: class
+Attribute Type: single
+Question: What is the class of the bug?
+Multiple Values: arachnid
+		  insect
+
+Attribute Name: type of insect
+Attribute Type: single
+Question: What is the type of the insect?
+Multiple Values: bettle
+		  orthoptera
+
+Attribute Name: name of bug
+Attribute Type: single
+Question: What size is the bug?
+Multiple Values: spider
+        	  tick
+        	  ladybug
+        	  japanese beetle
+        	  cricket
+        	  praying mantis
+
+Attribute Name: first action
+Attribute Type: single
+Question: What is the first action?
+Multiple Values: none
+        	  grasp bug
+        	  swat bug
+        	  get bug from bug jar
+
+Attribute Name: second action
+Attribute Type: single
+Question: What is the second action?
+Multiple Values: none
+        	  move to plant solarium
+        	  move to outside
+        	  release bug
+        	  grasp bug
+
+Attribute Name: third action
+Attribute Type: single
+Question: What is the third action?
+Multiple Values: none
+		  release bug
+		  store bug in bug jar
+
+
+
+Tab: Rules
+
+Rules Area
+
+Rule Name: class rule1
+IF  number of antennae = none  Then  class = arachnid
+AND  number of legs = eight 
+
+Rule Name: class rule2
+IF  number of wings = none  Then  class = arachnid
+
+Rule Name: class rule3
+IF  number of antennae = two  Then  class = insect
+AND  number of legs = six 
+
+Rule Name: class rule4
+IF  number of wings = none  Then  class = insect
+
+Rule Name: arachnid rule1
+IF  class = arachnid  Then  name of bug = spider
+AND leg length = long
+
+Rule Name: arachnid rule2
+IF  class = arachnid  Then  name of bug = tick
+AND leg length = short
+
+Rule Name: insect rule1
+IF  class = insect  Then  type of insect = beetle
+AND size = small
+AND shape = round
+
+Rule Name: insect rule2
+IF  class = insect  Then  type of insect = orthoptera
+AND size # small
+AND shape = elongated
+
+Rule Name: beetle rule1
+IF  type of insect = beetle  Then  name of bug = ladybug
+AND color = orange
+AND color = black
+
+Rule Name: beetle rule2
+IF  type of insect = beetle  Then  name of bug = japanese beetle
+AND color = black
+AND color = green
+
+Rule Name: orthoptera rule1
+IF  type of insect = orthoptera  Then  name of bug = cricket
+AND color = black
+
+Rule Name: orthoptera rule2
+IF  type of insect = orthoptera  Then  name of bug = praying mantis
+AND color = green
+AND size = large
+
+Rule Name: action rule1
+IF  name of bug = spider  	Then  first action = none
+OR name of bug = cricket  	And   second action = none
+OR name of bug = ladybug  	And   third action = none
+AND location of bug = outside
+
+Rule Name: action rule2
+IF  name of bug = spider  	Then  first action = grasp bug
+OR name of bug = cricket  	And   second action = move to outside
+OR name of bug = ladybug  	And   third action = release bug
+AND location of bug # outside
+
+Rule Name: action rule3
+IF  name of bug = japanese beetle  Then  first action = swat bug
+OR name of bug = tick  	     And   second action = grasp bug
+ 				     And   third action = store bug in bug jar
+
+Rule Name: action rule4
+IF  name of bug = praying mantis  		Then  first action = grasp bug
+AND location of bug # plant solarium  	And   second action = move to plant solarium
+ 				     		And   third action = release bug
+
+Rule Name: action rule5
+IF  name of bug = praying mantis  		Then  first action = get bug from bug jar
+AND location of bug = plant solarium  	And   second action = release bug
+ 				     		And   third action = none
+
+
+
+Tab: Actions
+
+Actions Area
+
+Action Type: Display Message
+please answer the following questions about the insect just found…
+
+Action Type: Obtain Attribute
+first action
+
+Action Type: Obtain Attribute
+second action
+
+Action Type: Obtain Attribute
+third action
+
+Action Type: Display Message
+based on this information the name of your bug is…
+
+Action Type: Display Attribute
+name of bug
+
+Action Type: Display Message
+the following actions should be taken:
+
+Action Type: Display Attribute
+first action
+
+Action Type: Display Attribute
+second action
+
+Action Type: Display Attribute
+third action
+
